@@ -67,4 +67,5 @@ describe("CreateCategoryUseCase Integration Tests", () => {
       created_at: entity.created_at,
     });
   });
+  
 });
