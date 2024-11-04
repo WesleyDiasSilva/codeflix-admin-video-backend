@@ -4,19 +4,10 @@ import { CategoryModelMapper } from "../category-model.mapper";
 import { CategoryModel } from "../category.model";
 import { Category } from "../../../../domain/category.entity";
 import { Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
+import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 
 describe('CategoryModelMapper', () => {
-  let sequelize;
-
-  beforeEach(async ()  => {
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory:',
-      models: [CategoryModel],
-      logging: false
-    })
-    await sequelize.sync({force: true})
-  })
+  setupSequelize({models: [CategoryModel]});
 
   test('should throws error when category is invalid', () => {
     const model = CategoryModel.build({
