@@ -45,6 +45,10 @@ export class Category extends Entity {
     return category;
   }
 
+  static fake() {
+    return CategoryFakeBuilder;
+  }
+
   changeName(name: string): void {
     this.name = name;
     this.validate(['name']);
@@ -67,9 +71,7 @@ export class Category extends Entity {
     return validator.validate(this.notification, this, fields);
   }
 
-  static fake() {
-    return CategoryFakeBuilder;
-  }
+  
 
   toJSON() {
     return {
