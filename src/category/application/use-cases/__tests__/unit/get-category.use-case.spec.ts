@@ -36,6 +36,7 @@ describe("GetCategoryUseCase Unit Tests", () => {
       description: null,
       is_active: true,
       created_at: items[0].created_at,
+      notification: items[0].notification,
     });
   });
 });

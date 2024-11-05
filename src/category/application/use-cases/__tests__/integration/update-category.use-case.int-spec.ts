@@ -38,6 +38,7 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
       description: entity.description,
       is_active: true,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
 
     type Arrange = {
@@ -155,6 +156,7 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
         description: i.expected.description,
         is_active: i.expected.is_active,
         created_at: entityUpdated.created_at,
+        notification: entityUpdated.notification
       });
       expect(entityUpdated.toJSON()).toStrictEqual({
         category_id: entity.category_id.id,

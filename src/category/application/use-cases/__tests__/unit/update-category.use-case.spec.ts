@@ -28,6 +28,19 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
     ).rejects.toThrow(new NotFoundError(uuid.id, Category));
   });
 
+  it('should throw an error when aggregate is not valid', async () => {
+    const aggregate = new Category({ name: 'Movie' });
+    repository.entities = [aggregate];
+    await expect(() =>
+      useCase.execute(
+        {
+          id: aggregate.category_id.id,
+          name: 't'.repeat(256),
+        },
+      ),
+    ).rejects.toThrowError('Entity Validation Error');
+  });
+
   it("should update a category", async () => {
     const spyUpdate = jest.spyOn(repository, "update");
     const entity = new Category({ name: "Movie" });
@@ -44,6 +57,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
       description: null,
       is_active: true,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
 
     type Arrange = {
@@ -160,6 +174,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
         description: i.expected.description,
         is_active: i.expected.is_active,
         created_at: i.expected.created_at,
+        notification: entity.notification,
       });
     }
   });

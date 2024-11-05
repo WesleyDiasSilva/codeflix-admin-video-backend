@@ -7,9 +7,12 @@ type PropOrFactory<T> = T | ((index: number) => T);
 export class CategoryFakeBuilder<TBuild = any> {
   // auto generated in entity
   private _category_id: PropOrFactory<Uuid> | undefined = undefined;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private _name: PropOrFactory<string> = (_index) => this.chance.word();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private _description: PropOrFactory<string | null> = (_index) =>
     this.chance.paragraph();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private _is_active: PropOrFactory<boolean> = (_index) => true;
   // auto generated in entity
   private _created_at: PropOrFactory<Date> | undefined = undefined;
@@ -81,7 +84,7 @@ export class CategoryFakeBuilder<TBuild = any> {
             created_at: this.callFactory(this._created_at, index),
           }),
         });
-        //category.validate();
+        category.validate();
         return category;
       });
     return this.countObjs === 1 ? (categories[0] as any) : categories;

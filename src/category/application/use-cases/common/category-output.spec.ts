@@ -15,6 +15,7 @@ describe('CategoryOutputMapper Unit Tests', () => {
       description: 'some description',
       is_active: true,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
   });
 });

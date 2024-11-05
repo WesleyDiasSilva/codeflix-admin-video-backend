@@ -24,6 +24,7 @@ describe("CreateCategoryUseCase Integration Tests", () => {
       description: null,
       is_active: true,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
 
     output = await useCase.execute({
@@ -37,6 +38,7 @@ describe("CreateCategoryUseCase Integration Tests", () => {
       description: "some description",
       is_active: true,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
 
     output = await useCase.execute({
@@ -51,6 +53,7 @@ describe("CreateCategoryUseCase Integration Tests", () => {
       description: "some description",
       is_active: true,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
 
     output = await useCase.execute({
@@ -65,6 +68,7 @@ describe("CreateCategoryUseCase Integration Tests", () => {
       description: "some description",
       is_active: false,
       created_at: entity.created_at,
+      notification: entity.notification,
     });
   });
   

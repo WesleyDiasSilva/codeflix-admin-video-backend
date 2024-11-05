@@ -10,6 +10,13 @@ describe('CreateCategoryUseCase Unit Tests', () => {
     useCase = new CreateCategoryUseCase(repository);
   });
 
+  it('should throw an error when aggregate is not valid', async () => {
+    const input = { name: 't'.repeat(256) };
+    await expect(() => useCase.execute(input)).rejects.toThrowError(
+      'Entity Validation Error',
+    );
+  });
+
   it('should create a category', async () => {
     const spyInsert = jest.spyOn(repository, 'insert');
     let output = await useCase.execute({ name: 'test' });
@@ -20,6 +27,7 @@ describe('CreateCategoryUseCase Unit Tests', () => {
       description: null,
       is_active: true,
       created_at: repository.entities[0].created_at,
+      notification: repository.entities[0].notification,
     });
 
     output = await useCase.execute({
@@ -34,6 +42,7 @@ describe('CreateCategoryUseCase Unit Tests', () => {
       description: 'some description',
       is_active: false,
       created_at: repository.entities[1].created_at,
+      notification: repository.entities[1].notification,
     });
   });
 });
