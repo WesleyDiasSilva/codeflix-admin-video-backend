@@ -12,7 +12,7 @@ export class CategoryOutputMapper {
   static toOutput(entity: Category): CategoryOutput {
     const { category_id, ...otherProps } = entity;
     return {
-      id: entity.category_id.id,
+      id: category_id.id,
       ...otherProps,
     };
   }
