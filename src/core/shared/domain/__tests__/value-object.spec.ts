@@ -1,13 +1,16 @@
-import { ValueObject } from "../value-object";
+import { ValueObject } from '../value-object';
 
-class StringValueObject extends ValueObject{
+class StringValueObject extends ValueObject {
   constructor(readonly value: string) {
     super();
   }
 }
 
-class ComplexValueObject extends ValueObject{
-  constructor(readonly prop1: string, readonly prop2: number) {
+class ComplexValueObject extends ValueObject {
+  constructor(
+    readonly prop1: string,
+    readonly prop2: number,
+  ) {
     super();
   }
 }

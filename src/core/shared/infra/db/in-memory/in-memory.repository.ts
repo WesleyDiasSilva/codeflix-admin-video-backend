@@ -1,12 +1,21 @@
-import { Entity } from "../../../domain/entity";
-import { NotFoundError } from "../../../domain/errors/not-found.error";
-import { IRepository, ISearchableRepository } from "../../../domain/repository/repository-interface";
-import { SearchParams, SortDirection } from "../../../domain/repository/search-params";
-import { SearchResult } from "../../../domain/repository/search-result";
-import { ValueObject } from "../../../domain/value-object";
+import { Entity } from '../../../domain/entity';
+import { NotFoundError } from '../../../domain/errors/not-found.error';
+import {
+  IRepository,
+  ISearchableRepository,
+} from '../../../domain/repository/repository-interface';
+import {
+  SearchParams,
+  SortDirection,
+} from '../../../domain/repository/search-params';
+import { SearchResult } from '../../../domain/repository/search-result';
+import { ValueObject } from '../../../domain/value-object';
 
-
-export abstract class InMemoryRepository<E extends Entity, EntityId extends ValueObject> implements IRepository<E, EntityId>{
+export abstract class InMemoryRepository<
+  E extends Entity,
+  EntityId extends ValueObject,
+> implements IRepository<E, EntityId>
+{
   entities: E[] = [];
 
   async insert(entity: E): Promise<void> {
@@ -18,8 +27,10 @@ export abstract class InMemoryRepository<E extends Entity, EntityId extends Valu
   }
 
   async update(entity: E): Promise<void> {
-    const index = this.entities.findIndex((e) => e.entity_id.equals(entity.entity_id));
-    if(index === -1) {
+    const index = this.entities.findIndex((e) =>
+      e.entity_id.equals(entity.entity_id),
+    );
+    if (index === -1) {
       throw new NotFoundError(entity.entity_id, this.getEntity());
     }
     this.entities[index] = entity;
@@ -27,7 +38,7 @@ export abstract class InMemoryRepository<E extends Entity, EntityId extends Valu
 
   async delete(entity_id: EntityId): Promise<void> {
     const index = this.entities.findIndex((e) => e.entity_id.equals(entity_id));
-    if(index === -1) {
+    if (index === -1) {
       throw new NotFoundError(entity_id, this.getEntity());
     }
     this.entities.splice(index, 1);
@@ -39,32 +50,53 @@ export abstract class InMemoryRepository<E extends Entity, EntityId extends Valu
 
   async findById(entity_id: EntityId): Promise<E> {
     const entity: E = this.entities.find((e) => e.entity_id.equals(entity_id));
-    return typeof entity === "undefined" ? null : entity;
+    return typeof entity === 'undefined' ? null : entity;
   }
 
   abstract getEntity(): new (...args: any[]) => E;
 }
 
-
-export abstract class InMemorySearchableRepository<E extends Entity, EntityId extends ValueObject, Filter = string> extends InMemoryRepository<E, EntityId> implements ISearchableRepository<E, EntityId, Filter>{
+export abstract class InMemorySearchableRepository<
+    E extends Entity,
+    EntityId extends ValueObject,
+    Filter = string,
+  >
+  extends InMemoryRepository<E, EntityId>
+  implements ISearchableRepository<E, EntityId, Filter>
+{
   sortableFields: string[];
   async search(props: SearchParams<Filter>): Promise<SearchResult<E>> {
-    const itemsFiltered = await this.applyFilter(this.entities, props.filter)
-    const itemsSorted = this.applySort(itemsFiltered, props.sort, props.sort_dir)
-    const itemsPaginated = this.applyPaginate(itemsSorted, props.page, props.per_page)
-  
+    const itemsFiltered = await this.applyFilter(this.entities, props.filter);
+    const itemsSorted = this.applySort(
+      itemsFiltered,
+      props.sort,
+      props.sort_dir,
+    );
+    const itemsPaginated = this.applyPaginate(
+      itemsSorted,
+      props.page,
+      props.per_page,
+    );
+
     return new SearchResult({
       items: itemsPaginated,
       total: itemsFiltered.length,
       current_page: props.page,
-      per_page: props.per_page
-    })
+      per_page: props.per_page,
+    });
   }
-  
 
-  protected abstract applyFilter(entities: E[], filter: Filter | null): Promise<E[]>;
-  
-  protected applySort(entities: E[], sort: string | null, sort_dir: SortDirection | null, custom_getter?: (sort: string, entity: E) => any): E[] {
+  protected abstract applyFilter(
+    entities: E[],
+    filter: Filter | null,
+  ): Promise<E[]>;
+
+  protected applySort(
+    entities: E[],
+    sort: string | null,
+    sort_dir: SortDirection | null,
+    custom_getter?: (sort: string, entity: E) => any,
+  ): E[] {
     if (!sort || !this.sortableFields.includes(sort)) {
       return entities;
     }
@@ -84,12 +116,16 @@ export abstract class InMemorySearchableRepository<E extends Entity, EntityId ex
       }
 
       return 0;
-    })
+    });
   }
 
-  protected applyPaginate(entities: E[], page: SearchParams['page'], per_page: SearchParams['per_page']): E[] {
+  protected applyPaginate(
+    entities: E[],
+    page: SearchParams['page'],
+    per_page: SearchParams['per_page'],
+  ): E[] {
     const start = (page - 1) * per_page;
     const limit = start + per_page;
     return entities.slice(start, limit);
-}
+  }
 }

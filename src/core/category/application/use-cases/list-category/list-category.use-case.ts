@@ -1,10 +1,23 @@
-import { PaginationOutput, PaginationOutputMapper } from "../../../../shared/application/pagination-output";
-import { IUseCase } from "../../../../shared/application/use-case.interface";
-import { SortDirection } from "../../../../shared/domain/repository/search-params";
-import { CategoryFilter, CategorySearchParams, CategorySearchResult, ICategoryRepository } from "../../../domain/category.repository";
-import { CategoryOutput, CategoryOutputMapper } from "../common/category-output";
+import {
+  PaginationOutput,
+  PaginationOutputMapper,
+} from '../../../../shared/application/pagination-output';
+import { IUseCase } from '../../../../shared/application/use-case.interface';
+import { SortDirection } from '../../../../shared/domain/repository/search-params';
+import {
+  CategoryFilter,
+  CategorySearchParams,
+  CategorySearchResult,
+  ICategoryRepository,
+} from '../../../domain/category.repository';
+import {
+  CategoryOutput,
+  CategoryOutputMapper,
+} from '../common/category-output';
 
-export class ListCategoriesUseCase implements IUseCase<ListCategoriesInput, ListCategoriesOutput>{
+export class ListCategoriesUseCase
+  implements IUseCase<ListCategoriesInput, ListCategoriesOutput>
+{
   constructor(private readonly categoryRepository: ICategoryRepository) {}
 
   async execute(input: ListCategoriesInput): Promise<ListCategoriesOutput> {
@@ -14,11 +27,12 @@ export class ListCategoriesUseCase implements IUseCase<ListCategoriesInput, List
   }
 
   private toOutput(searchResult: CategorySearchResult): ListCategoriesOutput {
-    const outputItems = searchResult.items.map((category) => CategoryOutputMapper.toOutput(category));
-    return PaginationOutputMapper.toOutput(outputItems, searchResult)
+    const outputItems = searchResult.items.map((category) =>
+      CategoryOutputMapper.toOutput(category),
+    );
+    return PaginationOutputMapper.toOutput(outputItems, searchResult);
   }
 }
-
 
 export type ListCategoriesInput = {
   page?: number;
@@ -26,6 +40,6 @@ export type ListCategoriesInput = {
   sort?: string | null;
   sort_dir?: SortDirection | null;
   filter?: CategoryFilter | null;
-}
+};
 
 export type ListCategoriesOutput = PaginationOutput<CategoryOutput>;

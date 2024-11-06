@@ -156,7 +156,7 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
         description: i.expected.description,
         is_active: i.expected.is_active,
         created_at: entityUpdated.created_at,
-        notification: entityUpdated.notification
+        notification: entityUpdated.notification,
       });
       expect(entityUpdated.toJSON()).toStrictEqual({
         category_id: entity.category_id.id,

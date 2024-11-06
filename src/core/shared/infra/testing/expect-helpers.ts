@@ -2,7 +2,7 @@
 //import { EntityValidationError } from "../../domain/validators/validation.error";
 //import { FieldsErrors } from "../../domain/validators/validator-fields-interface";
 
-import { Notification } from "../../domain/validators/nofication";
+import { Notification } from '../../domain/validators/nofication';
 
 // type Expected =
 //   | {

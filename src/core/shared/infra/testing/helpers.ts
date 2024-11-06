@@ -1,8 +1,8 @@
-import { Model, Sequelize, SequelizeOptions } from "sequelize-typescript";
-import { CategoryModel } from "../../../category/infra/db/sequelize/category.model";
-import { Config } from "../config";
+import { Model, Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { CategoryModel } from '../../../category/infra/db/sequelize/category.model';
+import { Config } from '../config';
 
-export function setupSequelize(options: SequelizeOptions = {}){
+export function setupSequelize(options: SequelizeOptions = {}) {
   let _sequelize: Sequelize;
   beforeAll(async () => {
     _sequelize = new Sequelize({
@@ -11,13 +11,17 @@ export function setupSequelize(options: SequelizeOptions = {}){
     });
   });
 
-  beforeEach(async () => {await _sequelize.sync({ force: true });})
+  beforeEach(async () => {
+    await _sequelize.sync({ force: true });
+  });
 
-  afterAll(async () => {await _sequelize.close()});
+  afterAll(async () => {
+    await _sequelize.close();
+  });
 
   return {
     get sequelize() {
       return _sequelize;
-    }
-  }
+    },
+  };
 }

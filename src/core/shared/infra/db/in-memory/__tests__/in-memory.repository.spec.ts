@@ -1,19 +1,19 @@
-import { Entity } from "../../../../domain/entity";
-import { NotFoundError } from "../../../../domain/errors/not-found.error";
-import { Uuid } from "../../../../domain/value-objects/uuid.vo";
-import { InMemoryRepository } from "../in-memory.repository";
+import { Entity } from '../../../../domain/entity';
+import { NotFoundError } from '../../../../domain/errors/not-found.error';
+import { Uuid } from '../../../../domain/value-objects/uuid.vo';
+import { InMemoryRepository } from '../in-memory.repository';
 
 type StubEntityConstructorProps = {
   entity_id?: Uuid;
   name: string;
   price: number;
-}
+};
 
 class StubEntity extends Entity {
   entity_id: Uuid;
   name: string;
   price: number;
-  constructor(props: StubEntityConstructorProps){
+  constructor(props: StubEntityConstructorProps) {
     super();
     this.entity_id = props.entity_id || new Uuid();
     this.name = props.name;
@@ -23,12 +23,12 @@ class StubEntity extends Entity {
     return {
       entity_id: this.entity_id.id,
       name: this.name,
-      price: this.price
-    }
+      price: this.price,
+    };
   }
 }
 
-class StubInMemory extends InMemoryRepository<StubEntity, Uuid>{
+class StubInMemory extends InMemoryRepository<StubEntity, Uuid> {
   getEntity(): new (...args: any[]) => StubEntity {
     return StubEntity;
   }
@@ -39,14 +39,14 @@ describe('InMemory Unit Tests', () => {
 
   beforeEach(() => {
     repo = new StubInMemory();
-  })
+  });
   test('should insert a new entity', async () => {
     const entity = new StubEntity({ name: 'test', price: 100 });
     await repo.insert(entity);
     expect(repo.entities).toHaveLength(1);
     expect(repo.entities[0].name).toBe('test');
     expect(repo.entities[0].price).toBe(100);
-  })
+  });
 
   test('should bulk insert entities', async () => {
     const entities = [
