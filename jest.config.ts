@@ -16,7 +16,6 @@ const config: Config = {
   // cacheDirectory: "/tmp/jest_rs",
 
   // Automatically clear mock calls, instances, contexts and results before every test
-  
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -33,7 +32,7 @@ const config: Config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -137,7 +136,6 @@ const config: Config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -198,27 +196,16 @@ const config: Config = {
   // watchman: true,
 
   clearMocks: true,
-  setupFilesAfterEnv: [
-    "./core/shared/infra/testing/expect-helpers.ts",
-  ],
-    moduleFileExtensions: [
-      "js",
-      "json",
-      "ts"
-    ],
-    rootDir: "src",
-    testRegex: ".*\\..*spec\\.ts$",
-    transform: {
-      "^.+\\.(t|j)s$": '@swc/jest',
-    },
-    collectCoverageFrom: [
-      "**/*.(t|j)s"
-    ],
-    coverageDirectory: "../coverage",
-    testEnvironment: "node"
-
+  setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  rootDir: 'src',
+  testRegex: '.*\\..*spec\\.ts$',
+  transform: {
+    '^.+\\.(t|j)s$': '@swc/jest',
+  },
+  collectCoverageFrom: ['**/*.(t|j)s'],
+  coverageDirectory: '../coverage',
+  testEnvironment: 'node',
 };
-
-
 
 export default config;
