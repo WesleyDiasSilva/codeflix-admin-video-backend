@@ -32,7 +32,6 @@ const config: Config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -194,7 +193,7 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-
+  coverageProvider: 'v8',
   clearMocks: true,
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
   moduleFileExtensions: ['js', 'json', 'ts'],
