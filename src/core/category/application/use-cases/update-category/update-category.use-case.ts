@@ -23,9 +23,11 @@ export class UpdateCategoryUseCase
       throw new NotFoundError(input.id, Category);
     }
 
-    input.name && category.changeName(input.name);
+    if (input.name) {
+      category.changeName(input.name);
+    }
 
-    if ('description' in input) {
+    if (input.description !== undefined) {
       category.changeDescription(input.description);
     }
 
