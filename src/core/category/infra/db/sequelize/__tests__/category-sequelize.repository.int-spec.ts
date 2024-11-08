@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize-typescript';
 import { NotFoundError } from '../../../../../shared/domain/errors/not-found.error';
 import { Uuid } from '../../../../../shared/domain/value-objects/uuid.vo';
-import { Category } from '../../../../domain/category.entity';
+import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
+import { Category } from '../../../../domain/category.aggregate';
 import {
   CategorySearchParams,
   CategorySearchResult,
@@ -9,7 +9,6 @@ import {
 import { CategoryModelMapper } from '../category-model.mapper';
 import { CategorySequelizeRepository } from '../category-sequelize.repository';
 import { CategoryModel } from '../category.model';
-import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
 
 describe('CategorySequelizeRepository Integration Test', () => {
   let repository: CategorySequelizeRepository;
