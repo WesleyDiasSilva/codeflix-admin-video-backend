@@ -9,8 +9,6 @@ export class EntityValidationFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response: Response = ctx.getResponse();
 
-    console.log(exception);
-
     response.status(422).json({
       statusCode: 422,
       error: 'Unprocessable Entity',
