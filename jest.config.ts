@@ -193,7 +193,6 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  coverageProvider: 'v8',
   clearMocks: true,
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
   moduleFileExtensions: ['js', 'json', 'ts'],
@@ -203,7 +202,26 @@ const config: Config = {
     '^.+\\.(t|j)s$': '@swc/jest',
   },
   collectCoverageFrom: ['**/*.(t|j)s'],
+  coverageProvider: 'v8',
   coverageDirectory: '../coverage',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.interface.ts',
+    'nest-modules/shared/testing/',
+    'nest-modules/shared/shared.module.ts',
+    'validator-rules.ts',
+    '-fixture.ts',
+    '.input.ts',
+    '.d.ts',
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+    },
+  },
   testEnvironment: 'node',
 };
 
