@@ -1,7 +1,7 @@
 import { MaxLength } from 'class-validator';
 import { ClassValidatorFields } from '../../shared/domain/validators/class-validator-fields';
 import { CastMember } from './cast-member.aggregate';
-import { Notification } from '../../shared/domain/validators/notification';
+import { Notification } from '@core/shared/domain/validators/nofication';
 
 export class CastMemberRules {
   @MaxLength(255, { groups: ['name'] })

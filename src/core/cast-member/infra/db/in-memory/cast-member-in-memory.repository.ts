@@ -1,12 +1,12 @@
-import { InMemorySearchableRepository } from '../../../../shared/infra/db/in-memory/in-memory.repository';
 import { SortDirection } from '../../../../shared/domain/repository/search-params';
+import { InMemorySearchableRepository } from '../../../../shared/infra/db/in-memory/in-memory.repository';
 import {
   CastMember,
   CastMemberId,
 } from '../../../domain/cast-member.aggregate';
 import {
-  ICastMemberRepository,
   CastMemberFilter,
+  ICastMemberRepository,
 } from '../../../domain/cast-member.repository';
 
 export class CastMemberInMemoryRepository
@@ -38,8 +38,8 @@ export class CastMemberInMemoryRepository
       return filter.name && filter.type
         ? containsName && hasType
         : filter.name
-        ? containsName
-        : hasType;
+          ? containsName
+          : hasType;
     });
   }
 

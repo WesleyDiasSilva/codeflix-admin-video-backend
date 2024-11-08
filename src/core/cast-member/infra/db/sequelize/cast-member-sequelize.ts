@@ -1,29 +1,29 @@
 import {
   Column,
   DataType,
+  Model,
   PrimaryKey,
   Table,
-  Model,
 } from 'sequelize-typescript';
 
+import { InvalidArgumentError } from '@core/shared/domain/errors/invalid-argument.error';
 import { literal, Op } from 'sequelize';
-import {
-  CastMember,
-  CastMemberId,
-} from '../../../domain/cast-member.aggregate';
+import { NotFoundError } from '../../../../shared/domain/errors/not-found.error';
 import { SortDirection } from '../../../../shared/domain/repository/search-params';
 import { LoadEntityError } from '../../../../shared/domain/validators/validation.error';
-import { NotFoundError } from '../../../../shared/domain/errors/not-found.error';
-import {
-  ICastMemberRepository,
-  CastMemberSearchParams,
-  CastMemberSearchResult,
-} from '../../../domain/cast-member.repository';
 import {
   CastMemberType,
   CastMemberTypes,
 } from '../../../domain/cast-member-type.vo';
-import { InvalidArgumentError } from '../../../../shared/domain/errors/invalid-argument.error';
+import {
+  CastMember,
+  CastMemberId,
+} from '../../../domain/cast-member.aggregate';
+import {
+  CastMemberSearchParams,
+  CastMemberSearchResult,
+  ICastMemberRepository,
+} from '../../../domain/cast-member.repository';
 
 export type CastMemberModelProps = {
   cast_member_id: string;
