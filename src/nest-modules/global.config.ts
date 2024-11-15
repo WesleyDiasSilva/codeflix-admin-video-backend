@@ -11,6 +11,8 @@ import { WrapperDataInterceptor } from './shared/interceptors/wrapper-data/wrapp
 export function applyGlobalConfig(app: INestApplication) {
   app.useGlobalPipes(
     new ValidationPipe({
+      transform: true,
+      whitelist: true,
       errorHttpStatusCode: 422,
     }),
   );

@@ -21,6 +21,7 @@ export class ListCastMembersUseCase
 
   async execute(input: ListCastMembersInput): Promise<ListCastMembersOutput> {
     const params = CastMemberSearchParams.create(input);
+    console.log(params);
     const searchResult = await this.castMemberRepo.search(params);
     return this.toOutput(searchResult);
   }
