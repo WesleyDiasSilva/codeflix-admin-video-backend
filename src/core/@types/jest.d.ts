@@ -1,4 +1,4 @@
-import { FieldsErrors } from './shared/domain/validators/validator-fields-interface';
+import { ValueObject } from '@core/shared/domain/value-object';
 
 declare global {
   namespace jest {
@@ -7,6 +7,7 @@ declare global {
       notificationContainsErrorMessages: (
         expected: Array<string | { [key: string]: string[] }>,
       ) => R;
+      toBeValueObject: (expected: ValueObject) => R;
     }
   }
 }
